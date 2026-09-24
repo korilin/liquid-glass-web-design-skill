@@ -1,0 +1,379 @@
+/*
+ * Liquid Glass Web Design — reference foundation
+ * Import as a starting point or translate these tokens and recipes into the
+ * host design system. Do not keep a second competing theme layer.
+ */
+
+@layer lg.tokens, lg.materials, lg.components, lg.states, lg.utilities;
+
+@layer lg.tokens {
+  :root,
+  [data-lg-tone="dark"] {
+    color-scheme: dark;
+
+    --lg-text-primary: rgb(255 255 255 / 96%);
+    --lg-text-secondary: rgb(239 245 255 / 76%);
+    --lg-text-muted: rgb(229 237 248 / 62%);
+    --lg-text-disabled: rgb(229 237 248 / 40%);
+
+    --lg-edge-soft: rgb(235 245 255 / 14%);
+    --lg-edge-default: rgb(235 245 255 / 25%);
+    --lg-edge-strong: rgb(245 250 255 / 44%);
+    --lg-highlight: rgb(255 255 255 / 30%);
+
+    --lg-veil-control: rgb(255 255 255 / 3%);
+    --lg-veil-card: rgb(5 9 15 / 14%);
+    --lg-veil-floating: rgb(5 9 15 / 21%);
+    --lg-fallback-surface: rgb(18 23 31 / 94%);
+
+    --lg-shadow-embedded: 0 5px 14px rgb(0 0 0 / 12%);
+    --lg-shadow-raised: 0 12px 30px rgb(0 0 0 / 22%);
+    --lg-shadow-floating: 0 20px 56px rgb(0 0 0 / 34%);
+
+    --lg-accent: oklch(78% 0.13 235);
+    --lg-accent-soft: color-mix(in oklch, var(--lg-accent) 12%, transparent);
+    --lg-accent-edge: color-mix(in oklch, var(--lg-accent) 66%, white 16%);
+    --lg-success: oklch(78% 0.18 145);
+    --lg-warning: oklch(80% 0.16 78);
+    --lg-danger: oklch(69% 0.22 25);
+    --lg-info: oklch(78% 0.13 235);
+
+    --lg-blur-control: 4px;
+    --lg-blur-floating: 6px;
+    --lg-blur-card: 8px;
+    --lg-blur-panel: 12px;
+
+    --lg-radius-compact: 10px;
+    --lg-radius-control: 14px;
+    --lg-radius-card: 18px;
+    --lg-radius-panel: 22px;
+
+    --lg-duration-fast: 120ms;
+    --lg-duration-normal: 180ms;
+    --lg-duration-settle: 220ms;
+    --lg-ease-out: cubic-bezier(.2, .75, .25, 1);
+  }
+
+  [data-lg-tone="light"] {
+    color-scheme: light;
+
+    --lg-text-primary: rgb(9 17 29 / 92%);
+    --lg-text-secondary: rgb(9 17 29 / 74%);
+    --lg-text-muted: rgb(9 17 29 / 58%);
+    --lg-text-disabled: rgb(9 17 29 / 38%);
+
+    --lg-edge-soft: rgb(255 255 255 / 34%);
+    --lg-edge-default: rgb(255 255 255 / 54%);
+    --lg-edge-strong: rgb(255 255 255 / 78%);
+    --lg-highlight: rgb(255 255 255 / 70%);
+
+    --lg-veil-control: rgb(255 255 255 / 13%);
+    --lg-veil-card: rgb(255 255 255 / 20%);
+    --lg-veil-floating: rgb(255 255 255 / 27%);
+    --lg-fallback-surface: rgb(242 246 251 / 96%);
+
+    --lg-shadow-embedded: 0 5px 14px rgb(28 42 60 / 11%);
+    --lg-shadow-raised: 0 12px 30px rgb(28 42 60 / 17%);
+    --lg-shadow-floating: 0 20px 56px rgb(28 42 60 / 24%);
+  }
+}
+
+@layer lg.materials {
+  :where(.lg-material) {
+    --lg-local-blur: var(--lg-blur-control);
+    --lg-local-radius: var(--lg-radius-control);
+    --lg-local-veil: transparent;
+    --lg-local-edge: var(--lg-edge-default);
+    --lg-local-shadow: var(--lg-shadow-embedded);
+
+    position: relative;
+    isolation: isolate;
+    border: 1px solid var(--lg-local-edge);
+    border-radius: var(--lg-local-radius);
+    background-color: var(--lg-local-veil);
+    color: var(--lg-text-primary);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 12%),
+      var(--lg-local-shadow);
+    backdrop-filter: blur(var(--lg-local-blur)) saturate(125%);
+    -webkit-backdrop-filter: blur(var(--lg-local-blur)) saturate(125%);
+  }
+
+  /* Edge-only optical variation. It does not paint the component interior. */
+  :where(.lg-material)::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      132deg,
+      rgb(255 255 255 / 48%) 0%,
+      rgb(255 255 255 / 12%) 24%,
+      transparent 48%,
+      rgb(255 255 255 / 6%) 72%,
+      rgb(255 255 255 / 28%) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  :where(.lg-material[data-lg-material="clear"], .lg-clear) {
+    --lg-local-veil: transparent;
+  }
+
+  :where(.lg-material[data-lg-material="frosted"], .lg-frosted) {
+    --lg-local-veil: var(--lg-veil-card);
+    --lg-local-blur: var(--lg-blur-card);
+  }
+
+  :where(.lg-material[data-lg-elevation="raised"], .lg-raised) {
+    --lg-local-shadow: var(--lg-shadow-raised);
+  }
+
+  :where(.lg-material[data-lg-elevation="floating"], .lg-floating) {
+    --lg-local-veil: var(--lg-veil-floating);
+    --lg-local-blur: var(--lg-blur-floating);
+    --lg-local-shadow: var(--lg-shadow-floating);
+  }
+
+  :where(.lg-material[data-lg-scale="card"]) {
+    --lg-local-radius: var(--lg-radius-card);
+    --lg-local-blur: var(--lg-blur-card);
+  }
+
+  :where(.lg-material[data-lg-scale="panel"]) {
+    --lg-local-radius: var(--lg-radius-panel);
+    --lg-local-blur: var(--lg-blur-panel);
+  }
+}
+
+@layer lg.components {
+  :where(.lg-card) {
+    --lg-local-radius: var(--lg-radius-card);
+    --lg-local-blur: var(--lg-blur-card);
+    padding: clamp(12px, 1.4vw, 20px);
+  }
+
+  :where(.lg-button, .lg-chip, .lg-input) {
+    --lg-local-blur: var(--lg-blur-control);
+    --lg-local-veil: var(--lg-veil-control);
+    --lg-local-radius: var(--lg-radius-control);
+    font: inherit;
+  }
+
+  :where(.lg-button) {
+    min-height: 38px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--lg-text-primary);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  :where(.lg-button[data-lg-size="compact"]) {
+    min-height: 32px;
+    padding-inline: 11px;
+    border-radius: var(--lg-radius-compact);
+    font-size: .875rem;
+  }
+
+  :where(.lg-chip) {
+    min-height: 30px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    color: var(--lg-text-secondary);
+    font-size: .8125rem;
+    white-space: nowrap;
+  }
+
+  :where(button.lg-chip, [role="option"].lg-chip) {
+    cursor: pointer;
+  }
+
+  :where(.lg-input) {
+    min-height: 40px;
+    padding: 0 13px;
+    color: var(--lg-text-primary);
+    outline: none;
+  }
+
+  :where(.lg-input)::placeholder {
+    color: var(--lg-text-muted);
+  }
+
+  :where(.lg-popover) {
+    --lg-local-veil: var(--lg-veil-floating);
+    --lg-local-blur: var(--lg-blur-floating);
+    --lg-local-shadow: var(--lg-shadow-floating);
+    --lg-local-radius: var(--lg-radius-control);
+    min-width: 180px;
+    padding: 8px;
+    color: var(--lg-text-primary);
+  }
+
+  :where(.lg-menu-item) {
+    width: 100%;
+    min-height: 36px;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 0;
+    border-radius: calc(var(--lg-radius-control) - 5px);
+    background: transparent;
+    color: var(--lg-text-secondary);
+    font: inherit;
+    text-align: start;
+  }
+
+  :where(.lg-status) {
+    --lg-status-color: var(--lg-text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--lg-text-secondary);
+  }
+
+  :where(.lg-status)::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 50%;
+    background: var(--lg-status-color);
+  }
+
+  :where(.lg-status[data-lg-tone="success"]) { --lg-status-color: var(--lg-success); }
+  :where(.lg-status[data-lg-tone="warning"]) { --lg-status-color: var(--lg-warning); }
+  :where(.lg-status[data-lg-tone="danger"]) { --lg-status-color: var(--lg-danger); }
+  :where(.lg-status[data-lg-tone="info"]) { --lg-status-color: var(--lg-info); }
+
+  :where(.lg-status[data-lg-tone="success"], .lg-status[data-lg-tone="warning"], .lg-status[data-lg-tone="danger"])::before {
+    box-shadow:
+      0 0 5px color-mix(in oklch, var(--lg-status-color) 72%, transparent),
+      0 0 12px color-mix(in oklch, var(--lg-status-color) 34%, transparent);
+  }
+
+  :where(.lg-divider) {
+    height: 1px;
+    margin-inline: var(--lg-local-radius, var(--lg-radius-control));
+    border: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--lg-edge-soft) 20%,
+      var(--lg-edge-soft) 80%,
+      transparent
+    );
+  }
+}
+
+@layer lg.states {
+  :where(.lg-button, button.lg-chip, [role="option"].lg-chip, .lg-menu-item, .lg-input) {
+    transition:
+      color var(--lg-duration-fast) var(--lg-ease-out),
+      background-color var(--lg-duration-normal) var(--lg-ease-out),
+      border-color var(--lg-duration-normal) var(--lg-ease-out),
+      box-shadow var(--lg-duration-normal) var(--lg-ease-out),
+      transform var(--lg-duration-fast) var(--lg-ease-out);
+  }
+
+  :where(.lg-button, button.lg-chip, [role="option"].lg-chip, .lg-menu-item):hover:not(:disabled, [aria-disabled="true"]) {
+    --lg-local-edge: var(--lg-edge-strong);
+    background-color: color-mix(in srgb, var(--lg-veil-control), white 4%);
+    color: var(--lg-text-primary);
+  }
+
+  :where(.lg-button, button.lg-chip, [role="option"].lg-chip, .lg-menu-item):active:not(:disabled, [aria-disabled="true"]) {
+    transform: translateY(1px);
+  }
+
+  :where(.lg-button, button.lg-chip, [role="option"].lg-chip, .lg-menu-item, .lg-input):focus-visible {
+    outline: 2px solid var(--lg-accent-edge);
+    outline-offset: 2px;
+    box-shadow:
+      var(--lg-local-shadow, var(--lg-shadow-embedded)),
+      0 0 12px color-mix(in oklch, var(--lg-accent) 18%, transparent);
+  }
+
+  :where([data-lg-selected="true"], [aria-selected="true"], [aria-pressed="true"], .is-selected) {
+    --lg-local-edge: var(--lg-accent-edge);
+    background-color: var(--lg-accent-soft);
+    color: var(--lg-text-primary);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 18%),
+      var(--lg-local-shadow, var(--lg-shadow-embedded)),
+      0 0 14px color-mix(in oklch, var(--lg-accent) 18%, transparent);
+  }
+
+  :where(:disabled, [aria-disabled="true"], .is-disabled) {
+    color: var(--lg-text-disabled);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .72;
+  }
+
+  :where([data-lg-tone="success"]) {
+    --lg-tone-color: var(--lg-success);
+  }
+
+  :where([data-lg-tone="warning"]) {
+    --lg-tone-color: var(--lg-warning);
+  }
+
+  :where([data-lg-tone="danger"]) {
+    --lg-tone-color: var(--lg-danger);
+  }
+
+  :where([data-lg-tone="info"]) {
+    --lg-tone-color: var(--lg-info);
+  }
+
+  :where(.lg-button[data-lg-tone="success"], .lg-button[data-lg-tone="warning"], .lg-button[data-lg-tone="danger"], .lg-button[data-lg-tone="info"]) {
+    border-color: color-mix(in oklch, var(--lg-tone-color) 58%, transparent);
+    background-color: color-mix(in oklch, var(--lg-tone-color) 9%, transparent);
+  }
+}
+
+@layer lg.utilities {
+  .lg-text-primary { color: var(--lg-text-primary); }
+  .lg-text-secondary { color: var(--lg-text-secondary); }
+  .lg-text-muted { color: var(--lg-text-muted); }
+
+  .lg-stack {
+    display: grid;
+    gap: var(--lg-stack-gap, 12px);
+  }
+
+  .lg-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--lg-cluster-gap, 8px);
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :where(.lg-material) {
+    background-color: var(--lg-fallback-surface);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.lg-button, .lg-chip, .lg-menu-item, .lg-input) {
+    scroll-behavior: auto;
+    transition-duration: 0.01ms;
+  }
+}

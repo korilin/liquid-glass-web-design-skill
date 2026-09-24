@@ -1,0 +1,5 @@
+interface:
+  display_name: "Liquid Glass Web Design"
+  short_description: "Build cohesive, restrained liquid-glass web interfaces"
+  brand_color: "#B9D9FF"
+  default_prompt: "Use $liquid-glass-web-design to design or refactor this web interface with a coherent liquid-glass system."
