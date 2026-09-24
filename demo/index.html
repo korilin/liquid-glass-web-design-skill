@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-lg-tone="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Liquid Glass Material Study</title>
+    <link rel="stylesheet" href="../liquid-glass-web-design/assets/liquid-glass.css">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="environment" aria-hidden="true">
+      <div class="environment__motion">
+        <svg class="environment__art" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="warm-ribbon" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ffc87c" stop-opacity=".34" />
+              <stop offset=".34" stop-color="#ffc98b" stop-opacity=".9" />
+              <stop offset=".72" stop-color="#db7777" stop-opacity=".68" />
+              <stop offset="1" stop-color="#8e5d87" stop-opacity=".22" />
+            </linearGradient>
+            <linearGradient id="cool-ribbon" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#31798e" stop-opacity=".22" />
+              <stop offset=".34" stop-color="#55d9d2" stop-opacity=".72" />
+              <stop offset=".68" stop-color="#83eee3" stop-opacity=".88" />
+              <stop offset="1" stop-color="#3c789b" stop-opacity=".24" />
+            </linearGradient>
+            <linearGradient id="violet-ribbon" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#554375" stop-opacity=".18" />
+              <stop offset=".38" stop-color="#8569c4" stop-opacity=".55" />
+              <stop offset=".72" stop-color="#c19bff" stop-opacity=".78" />
+              <stop offset="1" stop-color="#6957a0" stop-opacity=".24" />
+            </linearGradient>
+          </defs>
+
+          <path class="ribbon-path" stroke="url(#warm-ribbon)" d="M-150 150 C 180 -15, 410 265, 735 124 S 1180 20, 1590 196" />
+          <path class="ribbon-path" stroke="url(#cool-ribbon)" d="M-130 492 C 188 300, 440 610, 770 430 S 1190 270, 1580 470" />
+          <path class="ribbon-path" stroke="url(#violet-ribbon)" d="M-150 820 C 210 610, 505 890, 840 708 S 1240 535, 1590 720" />
+
+          <path class="contour contour--warm" d="M-150 150 C 180 -15, 410 265, 735 124 S 1180 20, 1590 196" />
+          <path class="contour contour--cool" d="M-130 492 C 188 300, 440 610, 770 430 S 1190 270, 1580 470" />
+          <path class="contour contour--violet" d="M-150 820 C 210 610, 505 890, 840 708 S 1240 535, 1590 720" />
+        </svg>
+      </div>
+      <div class="environment__grid"></div>
+      <div class="environment__grain"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar lg-material" data-lg-material="clear" data-lg-elevation="raised">
+        <a class="brand" href="#material" aria-label="Liquid Glass demo home">
+          <span class="brand__mark" aria-hidden="true"><i></i></span>
+          <span>Liquid Glass</span>
+        </a>
+
+        <nav class="tabs" aria-label="Demo sections">
+          <a href="#material" aria-current="page">Material</a>
+          <a href="#motion">Motion</a>
+          <a href="#system">System</a>
+        </nav>
+
+        <span class="topbar__index" aria-hidden="true">01</span>
+      </header>
+
+      <main class="stage">
+        <section class="material-card lg-material" data-lg-material="frosted" data-lg-scale="panel" data-lg-elevation="floating" aria-labelledby="material-title" id="material">
+          <div class="material-card__label">Material study / 01</div>
+
+          <h1 id="material-title">Liquid glass.</h1>
+
+          <p>Environment, softly transformed.</p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
